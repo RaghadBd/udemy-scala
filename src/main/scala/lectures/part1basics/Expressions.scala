@@ -51,7 +51,8 @@ object Expressions extends App {
     if (z > 2) "hello" else "goodbye"
   }
 
-  // 1. difference between "hello world" vs println("hello world")?
+  // 1. difference between "hello world" vs println("hello world")? the first is value of type string
+  // print lin is an expression returning unit , so the type is different the first is sting and the second is unit
   // 2.
 
   val someValue = {
