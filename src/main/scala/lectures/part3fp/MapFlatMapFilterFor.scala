@@ -1,48 +1,53 @@
 package lectures.part3fp
 
 object MapFlatMapFilterFor extends App{
-val list=List(1,2,3)
+val list=List(1,2,3) //calling list method in the list companion object
   print(list)
-   //map
+
+
+  //map => build a new collection
   println(list.map(_+1))
   println(list.map(_+" is a number"))
+
   //filter
   println(list.filter(_ %2==0))
+
   //flatmap
   val toPair=(x:Int)=>List(x,x+1)
+  println(list.flatMap(toPair))
   println(list.flatMap(x=>List(x,x+1)))
 
-  val endTime = java.time.ZonedDateTime.now
+  // print all combinations between two lists
+  val numbers = List(1,2,3,4)
+  val chars = List('a','b','c','d')
+  val colors = List("black", "white")
 
-  val startTime = endTime.minusDays(4)
+  // List("a1", "a2"... "d4")
+  val c1=chars.flatMap (chars => numbers.map(n=>""+chars+n)) // flatmap in the first because for each element in numbers I'll produce a list
+  // and the second is map because I'll return the composed of
+println("my combination is ",c1)
 
-  println(endTime," ",startTime)
-  val duration= java.time.Duration.between(startTime,endTime)
-  println(duration)
-  val numDays = java.time.Duration.between(startTime,endTime).toDays.toInt
-  println(numDays)
-  val day = (0 to numDays)
-println(day )
-  val dayFilter = (0 to numDays).map(i => startTime.plusDays(i)).map(d => f"(year='${d.getYear}%04d' AND month='${d.getMonthValue}%02d' AND day='${d.getDayOfMonth}%02d') ").mkString(" OR ")
-println(dayFilter)
+  val c2=numbers.flatMap (n=> chars.flatMap(c=>c+n.toString))
 
-  val numbers=List(1,2,3,4)
-  val chars=List('a','b','c','d')
-  val colors = List("black","white")
- // val comb=(x,y)=>x.foreach(x+y)
- val c1=chars.flatMap (chars => numbers.map(n=>""+chars+n))
-    println(c1.flatMap(c1=>colors.map(co=>""+co+c1)).length)
-  val combinations = numbers.filter(_ % 2 == 0).flatMap(n => chars.flatMap(c => colors.map(color => "" + c + n + "-" + color)))
-  println(combinations.length)
+  println("my flatMap combination is ",c2)
+
+// Iterations
+val c3=numbers.flatMap(n=>chars.flatMap(c=>colors.map(co=> ""+n+c+co)))
+
+  println("my flatMap combination is ",c3)
+
 
   //foreach
   val forCombination=for{
-    n<-numbers if n %2==0
+    n<-numbers if n %2==0 // equivalent to val c3=numbers.filter(_%2==0).flatMap(n=>chars.flatMap(c=>colors.map(co=> ""+n+c+co)))
     c<-chars
     color<-colors
   } yield ""+c+n+"-"+color
   println(forCombination)
 
+list.map{
+  x=> x*2
+}
   //1.MyList supports for comprehensions
 
 }
