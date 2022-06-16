@@ -18,9 +18,9 @@ val list=List(1,2,3) //calling list method in the list companion object
   println(list.flatMap(x=>List(x,x+1)))
 
   // print all combinations between two lists
-  val numbers = List(1,2,3,4)
-  val chars = List('a','b','c','d')
-  val colors = List("black", "white")
+  val numbers = List("t1","t2")
+  val chars = List("twamp","flowmeter","slm")
+  val colors = List(1,2,3,4,5,6,7)
 
   // List("a1", "a2"... "d4")
   val c1=chars.flatMap (chars => numbers.map(n=>""+chars+n)) // flatmap in the first because for each element in numbers I'll produce a list
@@ -39,10 +39,10 @@ val c3=numbers.flatMap(n=>chars.flatMap(c=>colors.map(co=> ""+n+c+co)))
 
   //foreach
   val forCombination=for{
-    n<-numbers if n %2==0 // equivalent to val c3=numbers.filter(_%2==0).flatMap(n=>chars.flatMap(c=>colors.map(co=> ""+n+c+co)))
+    n<-numbers // equivalent to val c3=numbers.filter(_%2==0).flatMap(n=>chars.flatMap(c=>colors.map(co=> ""+n+c+co)))
     c<-chars
     color<-colors
-  } yield ""+c+n+"-"+color
+  } yield println(n+"-"+c+"-"+color )
   println(forCombination)
 
 list.map{

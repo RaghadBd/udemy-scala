@@ -11,7 +11,7 @@ object Inheritance extends App {
     def eat: Unit = println("nomno")
   }
 
-
+// Access modifiers
   // protected can only be used within the methods within the sub class but not outside
   //cat is subclass and Animal is super class
   class Cat extends Animal {
@@ -23,8 +23,9 @@ object Inheritance extends App {
   }
 
   val cat = new Cat
+  cat.eat // subclass inherit all non private methods from the super class
   cat.crunch
-  cat.eat
+
 
 
   // Constructors
@@ -32,11 +33,13 @@ object Inheritance extends App {
     def this(name: String) = this(name, 0)
   }
 
-  class Adult(name: String, age: Int, idCard: String) extends Person(name, age)
+  class Adult(name: String, age: Int, idCard: String) extends Person(name, age) // compiler will call a constructor of the super first
 
-  //overriding
+
+
+  //overriding -> it works for methods,vals and vars
   class Dog(override val creatureType: String) extends Animal {
-    // override val creatureType: String = "domestic"
+   // override val creatureType: String = "domestic" --> another way to override
     override def eat: Unit = {
       super.eat
       println("crunch,crunch")
@@ -44,12 +47,18 @@ object Inheritance extends App {
 
   }
 
+  class Dog2(dogType:String) extends Animal{
+    override val creatureType: String = dogType
+  }
   val dog = new Dog("k9s")
   dog.eat
   println(dog.creatureType)
 
-  //Polymorphism
-  val unknownAnimal: Animal = new Dog("k9s")
+  val dogMethodB=new Dog2("domestic")
+  dogMethodB.eat
+
+  //Polymorphism ===> type substitution
+  val unknownAnimal: Animal = new Dog("k9s") // it will go to the most overriden methods
   unknownAnimal.eat
 
   //overRiding vs overLOADING
